@@ -516,9 +516,9 @@ class OrderCalculationTest extends TestCase
 
 		VatRate::factory(['country_code' => 'HR', 'amount' => 25, 'category_id' => $categoryTaxRate25->id])->create();
 
-		$productTaxRate10 = Product::factory(['price' => 100])->for($categoryTaxRate10)->create();
+		$productTaxRate10 = Product::factory(['price' => 100, 'weight' => 25])->for($categoryTaxRate10)->create();
 
-		$productTaxRate25 = Product::factory(['price' => 300])->for($categoryTaxRate25)->create();
+		$productTaxRate25 = Product::factory(['price' => 300, 'weight' => 10])->for($categoryTaxRate25)->create();
 
 		Address::factory(['type' => 1, 'country_code' => 'HR'])->create(['customer_id' => $this->user->user->id]);
 
