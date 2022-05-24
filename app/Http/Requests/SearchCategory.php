@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class SearchCategory extends FormRequest
+{
+	/**
+	 * Determine if the user is authorized to make this request.
+	 */
+	public function authorize(): bool
+	{
+		return true;
+	}
+
+	/**
+	 * Get the validation rules that apply to the request.
+	 */
+	public function rules(): array
+	{
+		return [
+			'search' => ['nullable', 'string', 'max:50'],
+			'parent' => ['nullable', 'uuid', 'exists:categories,id'],
+			'lang' => ['nullable', 'string', 'size:2', 'in:hr,en'],
+		];
+	}
+}

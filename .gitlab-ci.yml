@@ -1,0 +1,118 @@
+stages:
+  - build
+  - test
+  - deploy
+
+# Jobs name
+install:
+  #List of tags that are used to select a runner.
+  tags:
+    - "backend"
+  # Run only on merge requests
+  only:
+    - merge_requests
+  # The job's stage (build, test or deploy).
+  stage: build
+
+  # What to run on the job.
+  script:
+      - setup-database.sh gligora_cms # this parameter should match DB_DATABASE in .env.dev
+      - composer install-ci
+
+  artifacts:
+    # Define what to output from the job.
+    # this output will be accessible from other stages
+    paths:
+      - vendor
+      - node_modules
+      - .env
+  cache:
+
+    # The variable CI_COMMIT_REF_SLUG
+    # refers to the slug of the branch.
+    key: ${CI_COMMIT_REF_SLUG}-install-ci
+
+    # Define what to cache.
+    paths:
+      - vendor
+      - node_modules
+      - .env
+
+# Jobs name
+test:
+  tags:
+    - "backend"
+  # Run only on merge requests
+  only:
+    - merge_requests
+
+  # Runs after the build stage is over.
+  stage: test
+
+  # What to run on the job.
+  script:
+      - setup-database.sh gligora_cms # this parameter should match DB_DATABASE in .env.dev
+      - php artisan migrate
+      - npm run check-js-ci
+      - npm run check-css-ci
+      - composer check-normalize-ci
+      - composer check-format-ci
+      - composer analyse-ci
+      - php artisan test
+
+  artifacts:
+    # Define what to output from the job.
+    # this output will be accessible from other stages
+    paths:
+      - vendor
+      - node_modules
+      - .env
+
+#Deployment stages can be uncommented
+#only once the following variables are set in gitlab projcet settings->ci/cd->variables:
+# HOST_PROD
+# DOMAIN_PROD
+# PROJECT_PATH_PROD
+# SSH_PRIVATE_KEY_PROD
+
+#Deployment stage
+# deploy-production:
+#   stage: deploy
+#   only:
+#     refs:
+#       - master
+
+#   image: alpine
+#   before_script:
+#     - apk add openssh-client
+#     - eval $(ssh-agent -s)
+#     - echo "${SSH_PRIVATE_KEY_PROD}" | tr -d '\r' | ssh-add - > /dev/null
+#     - mkdir -p ~/.ssh
+#     - chmod 700 ~/.ssh
+#   script:
+#     - ssh -o StrictHostKeyChecking=no $HOST_PROD@$DOMAIN_PROD "$PROJECT_PATH_PROD/run-deployment.sh master"
+
+
+#Deployment stages can be uncommented
+#only once the following variables are set in gitlab projcet settings->ci/cd->variables:
+# HOST_STAGE
+# DOMAIN_STAGE
+# PROJECT_PATH_STAGE
+# SSH_PRIVATE_KEY_STAGE
+
+# Deployment stage for development and QA
+# deploy-internal:
+#   stage: deploy
+#   only:
+#     refs:
+#       - dev
+
+#   image: alpine
+#   before_script:
+#     - apk add openssh-client
+#     - eval $(ssh-agent -s)
+#     - echo "${SSH_PRIVATE_KEY_STAGE}" | tr -d '\r' | ssh-add - > /dev/null
+#     - mkdir -p ~/.ssh
+#     - chmod 700 ~/.ssh
+#   script:
+#     - ssh -o StrictHostKeyChecking=no $HOST_STAGE@$DOMAIN_STAGE "$PROJECT_PATH_STAGE/run-deployment.sh dev"

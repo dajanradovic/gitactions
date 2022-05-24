@@ -1,0 +1,43 @@
+includes:
+	- vendor/nunomaduro/larastan/extension.neon
+	- phpstan-baseline.neon
+
+parameters:
+	level: 6
+
+	checkMissingIterableValueType: false
+
+	checkGenericClassInNonGenericObjectType: false
+
+	checkAlwaysTrueCheckTypeFunctionCall: true
+
+	checkAlwaysTrueInstanceof: true
+
+	checkAlwaysTrueStrictComparison: true
+
+	checkExplicitMixedMissingReturn: true
+
+	checkFunctionNameCase: true
+
+	checkInternalClassCaseSensitivity: true
+
+	reportMaybesInMethodSignatures: true
+
+	reportMaybesInPropertyPhpDocTypes: true
+
+	reportStaticMethodSignatures: true
+
+	checkUninitializedProperties: true
+
+	checkModelProperties: true
+
+	checkOctaneCompatibility: true
+
+	paths:
+		- app
+		- config
+		- database
+		- resources/lang
+		- routes
+		- tests
+		- utils

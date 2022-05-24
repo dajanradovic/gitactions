@@ -1,0 +1,148 @@
+{
+	"name": "lloyds-digital/lloyds-backend-laravel",
+	"description": "Lloyds Digital CMS Template",
+	"type": "project",
+	"authors": [
+		{
+			"name": "Lloyds Digital",
+			"email": "weare@lloyds-digital.com",
+			"homepage": "https://lloyds-digital.com"
+		}
+	],
+	"homepage": "https://lloyds-digital.com",
+	"support": {
+		"email": "weare@lloyds-digital.com"
+	},
+	"require": {
+		"php": "^8.0",
+		"ext-bcmath": "*",
+		"ext-gd": "*",
+		"barryvdh/laravel-dompdf": "^1.0",
+		"bigfish/pdf417": "^0.3.0",
+		"doctrine/dbal": "^3.3",
+		"guzzlehttp/guzzle": "^7.4",
+		"htmlmin/htmlmin": "^9.0",
+		"innocenzi/laravel-vite": "^0.2",
+		"laravel/fortify": "^1.11",
+		"laravel/framework": "^9.2",
+		"laravel/horizon": "^5.9",
+		"laravel/octane": "^1.2",
+		"laravel/socialite": "^5.5",
+		"laravel/telescope": "^4.8",
+		"league/flysystem-aws-s3-v3": "^3.0",
+		"norkunas/onesignal-php-api": "^2.8",
+		"nyholm/psr7": "^1.5",
+		"paragonie/paseto": "^2.3",
+		"php-ffmpeg/php-ffmpeg": "^1.0",
+		"propaganistas/laravel-phone": "^4.3",
+		"socialiteproviders/apple": "^5.0",
+		"spatie/laravel-backup": "^8.0",
+		"spatie/laravel-csp": "^2.7",
+		"spatie/laravel-medialibrary": "^10.2",
+		"spatie/laravel-settings": "^2.4",
+		"spatie/laravel-uptime-monitor": "^4.1",
+		"staudenmeir/laravel-adjacency-list": "^1.10",
+		"twilio/sdk": "^6.33",
+		"vonage/client": "^3.0"
+	},
+	"require-dev": {
+		"andreaselia/laravel-api-to-postman": "^1.11",
+		"barryvdh/laravel-debugbar": "^3.6",
+		"barryvdh/laravel-ide-helper": "^2.12",
+		"ergebnis/composer-normalize": "^2.23",
+		"fakerphp/faker": "^1.18",
+		"friendsofphp/php-cs-fixer": "^3.8",
+		"mockery/mockery": "^1.5",
+		"nunomaduro/collision": "^6.1",
+		"nunomaduro/larastan": "^2.0",
+		"phpunit/phpunit": "^9.5",
+		"spatie/laravel-ignition": "^1.1"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"App\\": "app/",
+			"Database\\Factories\\": "database/factories/",
+			"Database\\Seeders\\": "database/seeders/"
+		},
+		"files": [
+			"utils/helpers.php"
+		]
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\": "tests/"
+		}
+	},
+	"config": {
+		"allow-plugins": true,
+		"optimize-autoloader": true,
+		"preferred-install": "dist",
+		"process-timeout": 0,
+		"sort-packages": true
+	},
+	"extra": {
+		"composer-normalize": {
+			"indent-size": 1,
+			"indent-style": "tab"
+		},
+		"laravel": {
+			"dont-discover": []
+		}
+	},
+	"scripts": {
+		"post-autoload-dump": [
+			"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+			"@php artisan package:discover --ansi"
+		],
+		"analyse": "phpstan analyse --memory-limit=-1",
+		"analyse-ci": "@analyse --no-progress",
+		"check-format": "@format --dry-run",
+		"check-format-ci": "@check-format --show-progress=none --using-cache=no",
+		"check-normalize": "@run-normalize --dry-run",
+		"check-normalize-ci": "@check-normalize -q",
+		"format": "php-cs-fixer fix",
+		"install-ci": [
+			"@php -r \"file_exists('.env') || copy('.env.dev', '.env');\"",
+			"@composer update -q --no-cache --ignore-platform-req=ext-pcntl --ignore-platform-req=ext-posix",
+			"npm install --silent --no-save postcss eslint stylelint stylelint-config-standard-scss",
+			"@php artisan migrate"
+		],
+		"install-dev": [
+			"@php -r \"file_exists('.env') || copy('.env.dev', '.env');\"",
+			"@update-dev",
+			"@php artisan key:generate",
+			"@php artisan storage:link",
+			"npm install -g npm",
+			"npm install",
+			"npm cache clean -f",
+			"npm run prod",
+			"@php artisan migrate:fresh --seed"
+		],
+		"optimize": [
+			"@php artisan optimize:clear",
+			"@php artisan config:cache",
+			"@php artisan route:cache",
+			"@php artisan event:cache",
+			"@php artisan view:cache"
+		],
+		"run-normalize": "@composer normalize --no-check-lock --no-update-lock",
+		"update-dev": [
+			"@composer self-update",
+			"@composer update -v --no-cache --ignore-platform-req=ext-pcntl --ignore-platform-req=ext-posix",
+			"@composer clear-cache",
+			"@php -r \"file_exists('.git/hooks/pre-commit') || link('pre-commit.sh', '.git/hooks/pre-commit');\"",
+			"@php artisan optimize:clear",
+			"@php artisan ide-helper:generate"
+		],
+		"update-prod": [
+			"@php artisan migrate --force",
+			"@composer update -v -n --no-cache --no-dev",
+			"@composer clear-cache -n",
+			"@optimize",
+			"@php artisan settings:clear-cache",
+			"supervisorctl restart all"
+		]
+	}
+}

@@ -1,0 +1,30 @@
+<?php
+
+return [
+	'title-m' => 'Products',
+	'title-s' => 'Product',
+	'list' => 'List products',
+	'description' => 'Description',
+	'price' => 'Price',
+	'quantity' => 'Quantity',
+	'harvest' => 'Harvest',
+	'gratis' => 'Gratis after certain number of products',
+	'code' => 'Erp code',
+	'piktograms' => 'Piktograms',
+	'sort-number' => 'Higher number will show first in the list',
+	'category' => 'Category',
+	'variant-title' => 'Variant name',
+	'variant-price' => 'Price',
+	'variant-measure' => 'Measure',
+	'variant-title-en' => 'Variant name - english',
+	'variants' => 'Variants',
+	'no-variants' => 'Currently no variants for this product',
+	'variant-label' => 'Variant helper text on frontend',
+	'unavailable' => 'Unavailable',
+	'choose-file' => 'Choose .csv file to import',
+	'header-row-record' => 'Skip first record',
+	'skip-header-row' => 'Turn off to include header row import from your CSV file',
+	'import' => 'Import products',
+	'variant-weight' => 'Weight (kg)',
+	'name' => 'Name'
+];

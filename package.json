@@ -1,0 +1,45 @@
+{
+	"name": "lloyds-backend",
+	"version": "1.0.0",
+	"description": "Lloyds Digital CMS Template",
+	"homepage": "https://lloyds-digital.com",
+	"author": {
+		"name": "Lloyds Digital",
+		"email": "weare@lloyds-digital.com",
+		"url": "https://lloyds-digital.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://gitlab.com/lloydsgroup/lloyds-backend-laravel.git"
+	},
+	"private": true,
+	"scripts": {
+		"dev": "vite",
+		"prod": "vite build",
+		"check-js": "eslint --cache vite.config.ts resources/assets/js/**/*.js",
+		"check-js-ci": "eslint --quiet vite.config.ts resources/assets/js/**/*.js",
+		"format-js": "npm run check-js -- --fix",
+		"check-css": "stylelint --cache resources/assets/css/**/*.css",
+		"check-css-ci": "stylelint -q resources/assets/css/**/*.css",
+		"format-css": "npm run check-css -- --fix"
+	},
+	"prettier": {
+		"printWidth": 160,
+		"useTabs": true,
+		"semi": true,
+		"singleQuote": true,
+		"quoteProps": "as-needed",
+		"trailingComma": "none",
+		"bracketSpacing": true,
+		"bracketSameLine": false,
+		"arrowParens": "avoid",
+		"endOfLine": "lf"
+	},
+	"devDependencies": {
+		"vite": "latest",
+		"vite-plugin-laravel": "latest",
+		"eslint": "latest",
+		"stylelint": "latest",
+		"stylelint-config-standard-scss": "latest"
+	}
+}

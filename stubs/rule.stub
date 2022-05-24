@@ -1,0 +1,40 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Contracts\Validation\Rule;
+
+class {{ class }} implements Rule
+{
+    /**
+     * Create a new rule instance.
+     */
+    public function __construct()
+    {
+        //
+    }
+
+	public function __toString(): string
+	{
+		return self::class;
+	}
+
+    /**
+     * Determine if the validation rule passes.
+     *
+     * @param  string  $attribute
+     * @param  mixed  $value
+     */
+    public function passes($attribute, $value): bool
+    {
+        //
+    }
+
+    /**
+     * Get the validation error message.
+     */
+    public function message(): string|array
+    {
+        return __('The validation error message.');
+    }
+}
