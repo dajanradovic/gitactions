@@ -25,6 +25,8 @@ class OrderCalculationTest extends TestCase
 		$this->user = $this->getCustomer();
 		$settings = app(GeneralSettings::class);
 		$settings->pdv_default = 25;
+		$settings->gratis_delivery = 500;
+		$settings->gratins_delivery_ino = 700;
 		$settings->save();
 
 		Discount::where('active', true)->update(['active' => false]);

@@ -23,7 +23,7 @@ class DpdShippingService implements ShippingProviderInterface
 	}
 
 	public function basePrice(float $weight, string $country): self
-	{
+	{	
 		$this->calculation = $this->deliveryPrice->getPrice($weight, $country, $this->deliveryPrice::DPD);
 
 		return $this;

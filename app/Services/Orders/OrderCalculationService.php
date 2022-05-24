@@ -134,8 +134,9 @@ class OrderCalculationService
 	public function calculateShipping(?string $provider = null, ?Address $address): Calculation
 	{
 		$shipping = null;
-
+		
 		if ($provider && $address) {
+
 			$shipping = $this->shippingCalculationService->decide($this->calculation->getTotalPriceWithDiscountsBeforeShipping(), $this->calculation->getItems(), ShippingServiceFactory::make($provider), $address);
 		}
 
