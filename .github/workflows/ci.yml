@@ -64,5 +64,8 @@ jobs:
 
     - name: Run Testsuite
 
-      run: php artisan migrate:fresh --seed
-      run: vendor/bin/phpunit tests/
+      run: |
+
+        php artisan migrate:fresh --seed
+
+        vendor/bin/phpunit tests/
