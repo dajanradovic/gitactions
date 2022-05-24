@@ -7,7 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Services\Orders\Payments\CorvusPaymentService;
 
-class CourvusPaymentServiceClassTest extends TestCase
+class CorvusPaymentServiceClassTest extends TestCase
 {
 	public function testOrderHasCorvusFieldsAppended(): void
 	{
