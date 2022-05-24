@@ -12,7 +12,6 @@ use App\Models\VatRate;
 use App\Models\Category;
 use App\Models\Discount;
 use App\Models\DiscountItem;
-use App\Models\DeliveryPrice;
 use App\Settings\GeneralSettings;
 
 class OrderCalculationTest extends TestCase
@@ -55,8 +54,6 @@ class OrderCalculationTest extends TestCase
 
 	public function testValidationShouldFailCodeNotAvailable(): void
 	{
-		DeliveryPrice::factory(['delivery_service' => 'DPD'])->create();
-
 		$product = Product::factory()->for(Category::factory()->create())->create();
 
 		$discount = Discount::factory(['active' => true, 'period_from' => now()->addMonth(), 'type' => Discount::GENERAL_DISCOUNT])->create();
@@ -511,6 +508,8 @@ class OrderCalculationTest extends TestCase
 
 	public function testLoggedInCalculationTwoItemsWithDifferemtTaxRatesWithoutDiscountWithPayOnDelivery(): void
 	{
+		DeliveryPrice::factory(['delivery_service' => 'DPD'])->create();
+
 		$categoryTaxRate10 = Category::factory()->create();
 
 		$categoryTaxRate25 = Category::factory()->create();
