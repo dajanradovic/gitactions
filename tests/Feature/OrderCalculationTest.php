@@ -12,6 +12,7 @@ use App\Models\VatRate;
 use App\Models\Category;
 use App\Models\Discount;
 use App\Models\DiscountItem;
+use App\Models\DeliveryPrice;
 use App\Settings\GeneralSettings;
 
 class OrderCalculationTest extends TestCase
